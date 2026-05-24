@@ -88,74 +88,39 @@ btnFetch.addEventListener('click', async function () {
 });
 
 
-async function getBase64ImageFromUrl(imageUrl) {
-    try {
-        // 使用 allorigins 代理强行越过 CORS 限制拉取图片的二进制流
-        const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(imageUrl)}`;
-        const response = await fetch(proxyUrl);
-        if (!response.ok) throw new Error('网络请求失败');
-
-        const blob = await response.blob();
-
-        // 将二进制 Blob 转换为 Base64
-        return new Promise((resolve, reject) => {
-            const reader = new FileReader();
-            reader.onloadend = () => resolve(reader.result);
-            reader.onerror = reject;
-            reader.readAsDataURL(blob);
-        });
-    } catch (error) {
-        console.error('图片转 Base64 失败:', error);
-        return imageUrl; // 实在失败了就原样返回，听天由命
-    }
-}
-
-// --- 截图按钮逻辑重构 ---
-document.getElementById('btn-download').addEventListener('click', async function () {
+document.getElementById('btn-download').addEventListener('click', function () {
     const targetElement = document.querySelector('.steam-window');
     const originalText = this.innerText;
 
-    this.innerText = '正在处理跨域图片...';
+    // 改变按钮状态防止连点
+    this.innerText = '正在渲染...';
     this.disabled = true;
     this.style.opacity = '0.5';
 
-    try {
-        // 1. 抓取页面上的两个目标图片节点
-        const gameImgNode = document.getElementById('out-game-img');
-        const avatarImgNode = document.getElementById('out-sender-avatar');
-
-        // 2. 检查它们是不是以 http 开头的外部链接，如果是，就转换它
-        if (gameImgNode.src.startsWith('http')) {
-            gameImgNode.src = await getBase64ImageFromUrl(gameImgNode.src);
-        }
-        if (avatarImgNode.src.startsWith('http')) {
-            avatarImgNode.src = await getBase64ImageFromUrl(avatarImgNode.src);
-        }
-
-        this.innerText = '正在渲染高质量图像...';
-
-        // 3. 图片已经被全部“本地化”成了 Base64，现在可以安全截图了
-        const canvas = await html2canvas(targetElement, {
-            useCORS: true,
-            backgroundColor: null,
-            scale: 2 // 保持 2 倍的 Retina 高清分辨率
-        });
-
-        // 4. 导出并下载
+    // 调用 html2canvas 重绘 DOM
+    html2canvas(targetElement, {
+        useCORS: true,        // 【极其关键】允许尝试加载跨域的 Steam 图片
+        backgroundColor: null,// 保持背景透明或者使用默认底色
+        scale: 2              // 提高清晰度（Retina 级别输出）
+    }).then(canvas => {
+        // 将画布转换为 Base64 图片数据
         const imgData = canvas.toDataURL('image/png');
+
+        // 创建一个虚拟的 <a> 标签触发下载
         const link = document.createElement('a');
-        link.download = 'steam-gift-perfect.png';
+        link.download = 'steam-gift-simulator.png'; // 下载的文件名
         link.href = imgData;
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
-
-    } catch (error) {
-        alert('渲染过程中发生致命错误:\n' + error.message);
-    } finally {
-        // 恢复按钮原状
+    }).catch(error => {
+        // 如果报错，99% 的情况是因为 Steam 的图片服务器拒绝了跨域请求
+        console.error('渲染失败:', error);
+        alert('图片导出失败。这通常是因为 Steam 的头像或封面图片拒绝了跨域抓取 (CORS Taint)。\n\nLinus建议：请直接使用系统的截图快捷键 (Win+Shift+S)。');
+    }).finally(() => {
+        // 恢复按钮状态
         this.innerText = originalText;
         this.disabled = false;
         this.style.opacity = '1';
-    }
+    });
 });
