@@ -86,3 +86,41 @@ btnFetch.addEventListener('click', async function () {
         this.disabled = false;
     }
 });
+
+
+document.getElementById('btn-download').addEventListener('click', function () {
+    const targetElement = document.querySelector('.steam-window');
+    const originalText = this.innerText;
+
+    // 改变按钮状态防止连点
+    this.innerText = '正在渲染...';
+    this.disabled = true;
+    this.style.opacity = '0.5';
+
+    // 调用 html2canvas 重绘 DOM
+    html2canvas(targetElement, {
+        useCORS: true,        // 【极其关键】允许尝试加载跨域的 Steam 图片
+        backgroundColor: null,// 保持背景透明或者使用默认底色
+        scale: 2              // 提高清晰度（Retina 级别输出）
+    }).then(canvas => {
+        // 将画布转换为 Base64 图片数据
+        const imgData = canvas.toDataURL('image/png');
+
+        // 创建一个虚拟的 <a> 标签触发下载
+        const link = document.createElement('a');
+        link.download = 'steam-gift-simulator.png'; // 下载的文件名
+        link.href = imgData;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }).catch(error => {
+        // 如果报错，99% 的情况是因为 Steam 的图片服务器拒绝了跨域请求
+        console.error('渲染失败:', error);
+        alert('图片导出失败。这通常是因为 Steam 的头像或封面图片拒绝了跨域抓取 (CORS Taint)。\n\nLinus建议：请直接使用系统的截图快捷键 (Win+Shift+S)。');
+    }).finally(() => {
+        // 恢复按钮状态
+        this.innerText = originalText;
+        this.disabled = false;
+        this.style.opacity = '1';
+    });
+});
