@@ -1,0 +1,214 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #12141a;
+    color: #c6d4df;
+    font-family: "Motiva Sans", Arial, Helvetica, sans-serif;
+    padding: 20px;
+}
+
+
+.control-panel {
+    max-width: 900px;
+    margin: 0 auto 30px auto;
+    background-color: #1e2024;
+    border: 1px solid #7c9c38;
+    /* 用绿色边框区分控制区 */
+    padding: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.control-panel h3 {
+    width: 100%;
+    color: #7c9c38;
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+.form-group {
+    flex: 1 1 300px;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    font-size: 12px;
+    color: #8f98a0;
+    margin-bottom: 5px;
+}
+
+.form-group input,
+.form-group textarea {
+    background-color: #1b2838;
+    border: 1px solid #3d4450;
+    color: #fff;
+    padding: 8px;
+    font-family: inherit;
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 60px;
+}
+
+
+.gift-container {
+    max-width: 900px;
+    margin: 0 auto;
+    background-color: #1e2024;
+    border: 1px solid #3d4450;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+}
+
+.header {
+    background: linear-gradient(to right, #1f2c3d, #1b2838);
+    padding: 25px 30px;
+    border-bottom: 1px solid #111;
+}
+
+.header h1 {
+    color: #ffffff;
+    font-size: 28px;
+    font-weight: normal;
+}
+
+.content-grid {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 20px;
+    gap: 20px;
+}
+
+.game-card {
+    flex: 0 0 320px;
+    background-color: #12141a;
+    border: 1px solid #3d4450;
+    display: flex;
+    flex-direction: column;
+}
+
+.game-card img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.game-info {
+    padding: 15px;
+}
+
+.game-info h2 {
+    color: #ffffff;
+    font-size: 14px;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    word-break: break-all;
+}
+
+.game-info hr {
+    border: 0;
+    border-top: 1px solid #3d4450;
+    margin-bottom: 15px;
+}
+
+.game-info p {
+    font-size: 12px;
+    color: #8f98a0;
+    word-break: break-word;
+}
+
+.right-column {
+    flex: 1;
+    min-width: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.message-box {
+    background-color: #22242b;
+    border: 1px solid #3d4450;
+    padding: 20px;
+    flex: 1;
+}
+
+.message-text {
+    color: #acb2b8;
+    font-size: 14px;
+    white-space: pre-wrap;
+    margin-bottom: 20px;
+    word-break: break-word;
+}
+
+.sender-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.sender-info img {
+    width: 32px;
+    height: 32px;
+    border: 1px solid #4c5b6a;
+}
+
+.sender-info span {
+    color: #ffffff;
+    font-size: 14px;
+}
+
+.action-box {
+    background-color: #22242b;
+    border: 1px solid #3d4450;
+    padding: 25px;
+    text-align: center;
+}
+
+.status-text {
+    font-size: 13px;
+    color: #8f98a0;
+    margin-bottom: 5px;
+}
+
+.status-text strong {
+    color: #c6d4df;
+    font-weight: normal;
+}
+
+.button-group {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+button {
+    border: none;
+    padding: 8px 25px;
+    font-size: 15px;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 2px;
+}
+
+.btn-accept {
+    background-color: #7c9c38;
+}
+
+.btn-accept:hover {
+    background-color: #8eb140;
+}
+
+.btn-decline {
+    background-color: #4c5b6a;
+}
+
+.btn-decline:hover {
+    background-color: #5d6e80;
+}
