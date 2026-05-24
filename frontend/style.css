@@ -8,9 +8,28 @@ body {
     background-color: #12141a;
     color: #c6d4df;
     font-family: "Motiva Sans", Arial, Helvetica, sans-serif;
-    padding: 20px;
+    padding: 40px 20px;
+
+    /* --- 核心修复区 --- */
+    display: flex;
+    flex-direction: column;
+    /* 强制子元素从上到下垂直排列 */
+    align-items: center;
+    /* 保证表单和窗口都乖乖呆在屏幕正中间 */
+    gap: 40px;
+    /* 统一设定表单和窗口之间的垂直间距 */
 }
 
+.steam-window {
+    width: 100%;
+    max-width: 900px; /* 稍微收紧一点，原图没那么宽 */
+    background-color: #1a1c23; /* 兜底深灰底色 */
+    border: 1px solid #111;
+    border-radius: 2px;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
+    display: flex;
+    flex-direction: column;
+}
 
 .control-panel {
     max-width: 900px;
@@ -57,38 +76,95 @@ body {
     min-height: 60px;
 }
 
+/* 独立出来的系统标题栏 */
+.title-bar {
+    background-color: #171a21; /* Steam 顶栏标准色 */
+    height: 30px;
+    display: flex;
+    align-items: center;
+    position: relative; /* 为了定位右侧按钮 */
+    padding-left: 10px;
+    user-select: none;
+}
+.title-bar .window-title {
+    color: #8f98a0;
+    font-size: 11px;
+}
+
+
+/* --- 修复后的系统控制按钮 --- */
+.window-controls {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    display: flex;
+}
+
+.window-controls button {
+    background: transparent;
+    border: none;
+    color: #8f98a0;
+    width: 45px;
+    height: 100%;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    /* 核心修复：切断全局 button 样式的继承污染 */
+    padding: 0; 
+    border-radius: 0;
+}
+
+/* 核心修复：使用透明度来实现完美融合的悬停，而不是死板的灰色 */
+.window-controls button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #fff;
+}
+
+.window-controls button.close:hover {
+    background-color: #e81123;
+    color: #fff;
+}
 
 .gift-container {
-    max-width: 900px;
-    margin: 0 auto;
-    background-color: #1e2024;
-    border: 1px solid #3d4450;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    width: 100%;
+    /* 把你的底纹 URL 填在这里，它将只在横幅下方显示，完美契合原版 */
+    background-image: url('./steam_bg.png');
+    background-repeat: repeat;
+    background-color: #212329;
 }
 
 .header {
-    background: linear-gradient(to right, #1f2c3d, #1b2838);
-    padding: 25px 30px;
-    border-bottom: 1px solid #111;
+    /* 开启相对定位，为了让控制按钮能定在右上角 */
+    background: linear-gradient(to right, #24354c, #1b2838); /* 更接近原图的灰蓝渐变 */
+    padding: 30px 30px;
 }
 
 .header h1 {
     color: #ffffff;
-    font-size: 28px;
+    font-size: 26px;
     font-weight: normal;
 }
 
 .content-grid {
     display: flex;
-    flex-wrap: wrap;
     padding: 20px;
     gap: 20px;
+    align-items: flex-start;
 }
 
+/* 核心细节：左侧卡片需要高亮蓝边 */
 .game-card {
     flex: 0 0 320px;
+    /* 铁律：不准变大，不准缩小 */
+    width: 320px;
+    min-width: 320px;
+    max-width: 320px;
     background-color: #12141a;
-    border: 1px solid #3d4450;
+    border: 1px solid #66c0f4;
+    /* Steam 标志性的蓝边 */
     display: flex;
     flex-direction: column;
 }
@@ -125,7 +201,7 @@ body {
 
 .right-column {
     flex: 1;
-    min-width: 300px;
+    min-width: 0;
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -156,6 +232,13 @@ body {
     width: 32px;
     height: 32px;
     border: 1px solid #4c5b6a;
+}
+
+.sender-info img.status-ingame {
+    /* 还原 Steam 经典的绿色“游戏中”头像框 */
+    border: 2px solid #8eb140; 
+    padding: 1px; /* 边框和图片之间的一点微小间隙，这就是质感 */
+    background-color: #000;
 }
 
 .sender-info span {
@@ -198,17 +281,25 @@ button {
 }
 
 .btn-accept {
-    background-color: #7c9c38;
+    /* 还原 Steam 的经典绿底渐变 */
+    background: linear-gradient(to bottom, #8eb140 5%, #7c9c38 95%);
+    color: #d2efa9;
+    text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.3);
+    /* 文字阴影增加立体感 */
 }
 
 .btn-accept:hover {
-    background-color: #8eb140;
+    background: linear-gradient(to bottom, #9ec14f 5%, #8ba93c 95%);
+    color: #fff;
 }
 
 .btn-decline {
-    background-color: #4c5b6a;
+    /* 还原 Steam 的次要操作灰底渐变 */
+    background: linear-gradient(to bottom, #5d6e80 5%, #4c5b6a 95%);
+    color: #c6d4df;
 }
 
 .btn-decline:hover {
-    background-color: #5d6e80;
+    background: linear-gradient(to bottom, #6d7f92 5%, #58697a 95%);
+    color: #fff;
 }

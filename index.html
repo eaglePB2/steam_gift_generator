@@ -38,11 +38,12 @@
         </div>
         <div class="form-group" style="flex-basis: 100%;">
             <label>留言内容</label>
-            <textarea id="input-msg-text"></textarea>
+            <textarea id="input-msg-text">可以肆意修改里面的内容哦~</textarea>
         </div>
         <div class="form-group">
             <label>发送者头像 (URL)</label>
-            <input type="text" id="input-sender-avatar" value="">
+            <input type="text" id="input-sender-avatar"
+                value="https://avatars.cloudflare.steamstatic.com/fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb_full.jpg">
         </div>
         <div class="form-group">
             <label>留言署名</label>
@@ -58,46 +59,63 @@
         </div>
     </div>
 
-    <div class="gift-container">
-        <div class="header">
-            <h1>您已收到一份礼物！</h1>
+    <div class="steam-window">
+
+        <div class="title-bar">
+            <span class="window-title">您已收到一份礼物！</span>
+            <div class="window-controls">
+                <button class="min">—</button>
+                <button class="close">✕</button>
+            </div>
         </div>
 
-        <div class="content-grid">
-            <div class="game-card">
-                <img id="out-game-img"
-                    src="https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/704850/header.jpg"
-                    alt="Game Image">
-                <div class="game-info">
-                    <h2 id="out-game-title">Thief Simulator</h2>
-                    <hr>
-                    <p id="out-game-desc">成为最厉害的窃贼。收集情报，偷东西，再把东西卖了买高科技装备。做一切真的贼能做的事。</p>
-                </div>
+        <div class="header">
+            <h1>您已收到一份礼物！</h1>
+            <div class="window-controls">
+                <button class="min">—</button>
+                <button class="close">✕</button>
             </div>
+        </div>
 
-            <div class="right-column">
-                <div class="message-box">
-                    <div class="message-text" id="out-msg-text">可以肆意修改里面的内容哦~</div>
-                    <div class="sender-info">
-                        <img id="out-sender-avatar"
-                            src="https://avatars.cloudflare.steamstatic.com/fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb_full.jpg"
-                            alt="Avatar">
-                        <span id="out-msg-name">hola!</span>
+        <div class="gift-container">
+            <div class="content-grid">
+                <div class="game-card">
+                    <img id="out-game-img"
+                        src="https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/704850/header.jpg"
+                        alt="Game Image">
+                    <div class="game-info">
+                        <h2 id="out-game-title">Thief Simulator</h2>
+                        <hr>
+                        <p id="out-game-desc">成为最厉害的窃贼。收集情报，偷东西，再把东西卖了买高科技装备。做一切真的贼能做的事。</p>
                     </div>
                 </div>
 
-                <div class="action-box">
-                    <div class="status-text">来自 <strong id="out-status-name">EaglePB2</strong>, 日期: <strong
-                            id="out-status-date">1月 15日</strong></div>
-                    <div class="status-text">状态: <strong>未签收</strong></div>
-                    <div class="button-group">
-                        <button class="btn-accept">接收礼物</button>
-                        <button class="btn-decline">拒绝礼物</button>
+                <div class="right-column">
+                    <div class="message-box">
+                        <div class="message-text" id="out-msg-text">可以肆意修改里面的内容哦~</div>
+                        <div class="sender-info">
+                            <img id="out-sender-avatar" class="status-ingame"
+                                src="https://avatars.cloudflare.steamstatic.com/fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb_full.jpg"
+                                alt="Avatar">
+                            <span id="out-msg-name">hola!</span>
+                        </div>
+                    </div>
+
+                    <div class="action-box">
+                        <div class="status-text">来自 <strong id="out-status-name">EaglePB2</strong>, 日期: <strong
+                                id="out-status-date">1月 15日</strong></div>
+                        <div class="status-text">状态: <strong>未签收</strong></div>
+                        <div class="button-group">
+                            <button class="btn-accept">接收礼物</button>
+                            <button class="btn-decline">拒绝礼物</button>
+                        </div>
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
     <script src="./frontend/index.js"> </script>
 </body>
+
 </html>
